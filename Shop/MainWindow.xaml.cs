@@ -157,7 +157,26 @@ namespace Shop
                 MessageBox.Show(ex.Message);
             }
         }
+
+        
     }
 
-   
+    public class IsDiscontinuedToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value != null)
+            {
+                if (value.ToString() == "True")
+                    return "Green";
+            }
+            return "Black";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            // never used
+            return null;
+        }
+    }
 }

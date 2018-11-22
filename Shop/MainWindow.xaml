@@ -12,7 +12,9 @@
         <CollectionViewSource x:Key="Collection" 
                               Source="{Binding Path=Collection, ElementName=Window}" 
                               Filter="FilterCollection"/>
+        <local:IsDiscontinuedToColorConverter x:Key="IsDiscontinuedToColorConverter" />
     </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*" />
@@ -49,7 +51,8 @@
 
                         <Label Grid.Column="1" 
                                HorizontalContentAlignment="Right"
-                               Content="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" />
+                               Content="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" 
+                               Foreground="{Binding IsDiscontinued, Converter={StaticResource IsDiscontinuedToColorConverter}}"/>
                         <Button Grid.Column="2" 
                                 Name="Del" 
                                 Content="❌"  

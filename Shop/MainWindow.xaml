@@ -5,8 +5,73 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Name="Window"
+        Title="Products" Height="450" Width="400" >
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="Collection" 
+                              Source="{Binding Path=Collection, ElementName=Window}" 
+                              Filter="FilterCollection"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.08*" />
+            <RowDefinition Height="0.08*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.08*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row = "0" Content="Product name:"/>
+        <TextBox Grid.Row = "1" 
+                 Margin="3"
+                 Name="tbProductName"
+                 Text="{Binding Path=Filter, 
+                           ElementName=Window,
+                           UpdateSourceTrigger=PropertyChanged}" />
+        <ListBox Grid.Row = "2" ItemsSource="{Binding Source={StaticResource Collection}}" 
+                 IsSynchronizedWithCurrentItem="True" 
+                 Margin="3"
+                 Name="lbProductList"
+                 HorizontalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid  HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.8*" />
+                            <ColumnDefinition Width="0.8*" />
+                            <ColumnDefinition Width="0.8*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" >
+                            <Label FontWeight="Bold"
+                                Content="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="{Binding Package, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <Label Grid.Column="1" 
+                               HorizontalContentAlignment="Right"
+                               Content="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="2" 
+                                Name="Del" 
+                                Content="❌"  
+                                Margin="1" 
+                                HorizontalContentAlignment="Right"
+                                Click="DelClick">
+                            
+                            </Button>
+                            <Button Grid.Column="3" 
+                                Name="Edit" 
+                                Content="✏"  
+                                Margin="1" 
+                                HorizontalAlignment="Right"
+                                Click="EditClick"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Row = "3"
+                Margin="3"
+                Content="Add new product"
+                Click="AddClick"/>
     </Grid>
 </Window>

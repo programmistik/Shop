@@ -13,9 +13,15 @@
                               Source="{Binding Path=Collection, ElementName=Window}" 
                               Filter="FilterCollection"/>
         <local:IsDiscontinuedToColorConverter x:Key="IsDiscontinuedToColorConverter" />
+
+        
+                
+            
     </Window.Resources>
     
     <Grid>
+        
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*" />
             <RowDefinition Height="0.08*" />
@@ -34,16 +40,37 @@
                  Margin="3"
                  Name="lbProductList"
                  HorizontalAlignment="Stretch">
+            
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid  HorizontalAlignment="Stretch">
+                    <StackPanel>
+                        <Separator>
+                            <Separator.Style>
+                                <Style TargetType="Separator">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Separator.Style>
+                        </Separator>
+                        <Grid  HorizontalAlignment="Stretch">
+                        
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="0.8*" />
                             <ColumnDefinition Width="0.8*" />
                             <ColumnDefinition Width="0.8*" />
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" >
+                        
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Stretch">
                             <Label FontWeight="Bold"
                                 Content="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}" />
                             <Label Content="{Binding Package, UpdateSourceTrigger=PropertyChanged}"/>
@@ -53,15 +80,15 @@
                                HorizontalContentAlignment="Right"
                                Content="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" 
                                Foreground="{Binding IsDiscontinued, Converter={StaticResource IsDiscontinuedToColorConverter}}"/>
+                        
                         <Button Grid.Column="2" 
                                 Name="Del" 
                                 Content="❌"  
                                 Margin="1" 
-                                HorizontalContentAlignment="Right"
-                                Click="DelClick">
-                            
-                            </Button>
-                            <Button Grid.Column="3" 
+                                HorizontalAlignment="Right"
+                                Click="DelClick"/>
+
+                        <Button Grid.Column="3" 
                                 Name="Edit" 
                                 Content="✏"  
                                 Margin="1" 
@@ -69,6 +96,8 @@
                                 Click="EditClick"/>
 
                     </Grid>
+                        
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

@@ -168,7 +168,7 @@ namespace Shop
             if (value != null)
             {
                 if (value.ToString() == "True")
-                    return "Green";
+                    return "MediumSeaGreen";
             }
             return "Black";
         }

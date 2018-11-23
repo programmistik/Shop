@@ -10,9 +10,8 @@
 namespace Shop
 {
     using System;
-    using System.Collections.ObjectModel;
-    using System.Windows.Input;
-
+    using System.Collections.Generic;
+    
     public partial class Product
     {
         public int Id { get; set; }
@@ -21,7 +20,7 @@ namespace Shop
         public Nullable<decimal> UnitPrice { get; set; }
         public string Package { get; set; }
         public bool IsDiscontinued { get; set; }
-
-       
+    
+        public virtual Supplier Supplier { get; set; }
     }
 }

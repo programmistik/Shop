@@ -26,5 +26,6 @@ namespace Shop
         }
     
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
     }
 }

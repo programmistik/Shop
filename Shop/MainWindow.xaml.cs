@@ -37,28 +37,14 @@ namespace Shop
 
         public ICollection<Product> Collection
         {
-            get
-            {
-                return (ICollection<Product>)GetValue(CollectionProperty);
-            }
-            set
-            {
-                SetValue(CollectionProperty, value);
-            }
-
+            get { return (ICollection<Product>)GetValue(CollectionProperty); }
+            set { SetValue(CollectionProperty, value); }
         }
 
         public string Filter
         {
-            get
-            {
-                return (string)GetValue(FilterProperty);
-            }
-            set
-            {
-                SetValue(FilterProperty, value);
-            }
-
+            get { return (string)GetValue(FilterProperty); }
+            set { SetValue(FilterProperty, value); }
         }
 
         public MainWindow()
@@ -70,6 +56,8 @@ namespace Shop
 
             Collection = Entity.Products.Local;
             lbProductList.ItemsSource = Collection;
+
+            Entity.Suppliers.Load();
 
         }
 
@@ -124,7 +112,7 @@ namespace Shop
                 var obj = cmd.DataContext as Product;
                 AddEditWindow AddWin = new AddEditWindow();
                 AddWin.Product = obj;
-               
+                AddWin.SupplierCollection = new Collection<Supplier>(Entity.Suppliers.Local);
                 AddWin.Title = $"Edit: {obj.ProductName}";
                 AddWin.ShowDialog();
                 SaveToDB();
@@ -136,11 +124,11 @@ namespace Shop
             AddEditWindow AddWin = new AddEditWindow();
             AddWin.Title = "Add new product";
             AddWin.Product = new Product();
+            AddWin.SupplierCollection = new Collection<Supplier>(Entity.Suppliers.Local);
             AddWin.ShowDialog();
             if (AddWin.Product != null)
             {
                 var obj = AddWin.Product as Product;
-                obj.SupplierId = 7;
                 Collection.Add(obj);
                 SaveToDB();
             }

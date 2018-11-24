@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop"
         mc:Ignorable="d"
-        Title="AddEditWindow" Height="265" Width="400" >
+        Title="AddEditWindow" Height="320" Width="400" >
+    
     <Grid>
         <StackPanel>
             <Label Content="Product name:"/>
@@ -26,7 +27,22 @@
                      Text="{Binding Path=Product.UnitPrice, 
                             UpdateSourceTrigger=Explicit,
                             RelativeSource={RelativeSource Mode=FindAncestor,
-                                                         AncestorType=Window}}"/>
+                                                         AncestorType=Window}}" />
+            <Label Content="Supplier:"/>
+            <ComboBox Name="cbSupplier"
+                      Margin="3"
+                      ItemsSource="{Binding Path=SupplierCollection, 
+                            UpdateSourceTrigger=Explicit,
+                            RelativeSource={RelativeSource Mode=FindAncestor,
+                                                         AncestorType=Window}}"
+                      DisplayMemberPath="CompanyName"  
+                      SelectedItem="{Binding Path=Product.Supplier, 
+                            UpdateSourceTrigger=Explicit,
+                            RelativeSource={RelativeSource Mode=FindAncestor,
+                                                         AncestorType=Window}}"
+                      />
+
+
             <CheckBox Name="chbDiscount" Content="Discount" 
                       Margin="3"
                       IsChecked="{Binding Path=Product.IsDiscontinued, 
